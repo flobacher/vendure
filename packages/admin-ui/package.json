@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@angular/animations": "^19.2.0",
-    "@angular/cdk": "^17.2.2",
+    "@angular/cdk": "^18.2.14",
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0",
     "@angular/forms": "^19.2.0",
