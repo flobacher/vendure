@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
@@ -94,9 +94,9 @@ export function createApollo(
  * state via the apollo-link-state package.
  */
 @NgModule({
-    imports: [HttpClientModule, ApolloModule],
     exports: [],
     declarations: [],
+    imports: [ApolloModule],
     providers: [
         BaseDataService,
         DataService,
@@ -114,6 +114,7 @@ export function createApollo(
             useFactory: initializeServerConfigService,
             deps: [ServerConfigService],
         },
+        provideHttpClient(withInterceptorsFromDi()),
     ],
 })
 export class DataModule {}
