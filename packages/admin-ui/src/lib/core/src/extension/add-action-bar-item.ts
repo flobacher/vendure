@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, Provider } from '@angular/core';
+import { Provider, inject, provideAppInitializer } from '@angular/core';
 import { ActionBarItem } from '../providers/nav-builder/nav-builder-types';
 import { NavBuilderService } from '../providers/nav-builder/nav-builder.service';
 
@@ -21,12 +21,10 @@ import { NavBuilderService } from '../providers/nav-builder/nav-builder.service'
  * @docsCategory action-bar
  */
 export function addActionBarItem(config: ActionBarItem): Provider {
-    return {
-        provide: APP_INITIALIZER,
-        multi: true,
-        useFactory: (navBuilderService: NavBuilderService) => () => {
+    return provideAppInitializer(() => {
+        const initializerFn = ((navBuilderService: NavBuilderService) => () => {
             navBuilderService.addActionBarItem(config);
-        },
-        deps: [NavBuilderService],
-    };
+        })(inject(NavBuilderService));
+        return initializerFn();
+    });
 }

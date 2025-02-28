@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, Provider } from '@angular/core';
+import { Provider, inject, provideAppInitializer } from '@angular/core';
 import { CustomDetailComponentConfig } from '../providers/custom-detail-component/custom-detail-component-types';
 import { CustomDetailComponentService } from '../providers/custom-detail-component/custom-detail-component.service';
 
@@ -55,12 +55,10 @@ import { CustomDetailComponentService } from '../providers/custom-detail-compone
  * @docsCategory custom-detail-components
  */
 export function registerCustomDetailComponent(config: CustomDetailComponentConfig): Provider {
-    return {
-        provide: APP_INITIALIZER,
-        multi: true,
-        useFactory: (customDetailComponentService: CustomDetailComponentService) => () => {
+    return provideAppInitializer(() => {
+        const initializerFn = ((customDetailComponentService: CustomDetailComponentService) => () => {
             customDetailComponentService.registerCustomDetailComponent(config);
-        },
-        deps: [CustomDetailComponentService],
-    };
+        })(inject(CustomDetailComponentService));
+        return initializerFn();
+    });
 }

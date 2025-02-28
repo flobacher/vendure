@@ -18,6 +18,7 @@ import { filter, map, takeUntil } from 'rxjs/operators';
     templateUrl: './job-list.component.html',
     styleUrls: ['./job-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false,
 })
 export class JobListComponent
     extends BaseListComponent<GetAllJobsQuery, ItemOf<GetAllJobsQuery, 'jobs'>>
@@ -28,7 +29,11 @@ export class JobListComponent
     queueFilter = new FormControl('all');
     stateFilter = new FormControl<JobState | string>('');
 
-    constructor(private dataService: DataService, router: Router, route: ActivatedRoute) {
+    constructor(
+        private dataService: DataService,
+        router: Router,
+        route: ActivatedRoute,
+    ) {
         super(router, route);
         super.setQueryFn(
             (...args: any[]) => this.dataService.settings.getAllJobs(...args),

@@ -57,6 +57,7 @@ interface OptionGroupUiModel {
     templateUrl: './product-variants-editor.component.html',
     styleUrls: ['./product-variants-editor.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false,
 })
 export class ProductVariantsEditorComponent implements OnInit, DeactivateAware {
     formValueChanged = false;
@@ -100,8 +101,7 @@ export class ProductVariantsEditorComponent implements OnInit, DeactivateAware {
         const product$ = this.refresh$.pipe(
             switchMap(() =>
                 this.dataService.product
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    .getProductVariantsOptions(this.route.parent?.snapshot.paramMap.get('id')!)
+                    .getProductVariantsOptions(this.route.parent?.snapshot.paramMap.get('id') ?? '')
                     .mapSingle(data => data.product),
             ),
             startWith(this.route.snapshot.data.product),

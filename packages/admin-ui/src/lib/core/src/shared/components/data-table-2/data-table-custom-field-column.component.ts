@@ -14,6 +14,7 @@ const labelPipe = new CustomFieldLabelPipe();
     templateUrl: './data-table-custom-field-column.component.html',
     styleUrls: ['./data-table-custom-field-column.component.scss'],
     exportAs: 'row',
+    standalone: false,
 })
 export class DataTableCustomFieldColumnComponent<T> extends DataTable2ColumnComponent<T> implements OnInit {
     @Input() customField: CustomFieldConfig;

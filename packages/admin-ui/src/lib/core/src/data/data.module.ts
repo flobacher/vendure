@@ -1,5 +1,5 @@
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
+import { Injector, NgModule, inject, provideAppInitializer } from '@angular/core';
 import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloLink } from '@apollo/client/link/core';
@@ -108,12 +108,10 @@ export function createApollo(
             deps: [LocalStorageService, FetchAdapter, Injector],
         },
         { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
-        {
-            provide: APP_INITIALIZER,
-            multi: true,
-            useFactory: initializeServerConfigService,
-            deps: [ServerConfigService],
-        },
+        provideAppInitializer(() => {
+            const initializerFn = initializeServerConfigService(inject(ServerConfigService));
+            return initializerFn();
+        }),
         provideHttpClient(withInterceptorsFromDi()),
     ],
 })

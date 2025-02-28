@@ -22,6 +22,7 @@ export interface TestOrderLine {
     templateUrl: './test-order-builder.component.html',
     styleUrls: ['./test-order-builder.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false,
 })
 export class TestOrderBuilderComponent implements OnInit {
     @Output() orderLinesChange = new EventEmitter<TestOrderLine[]>();
@@ -31,7 +32,10 @@ export class TestOrderBuilderComponent implements OnInit {
         return this.lines.reduce((sum, l) => sum + l.unitPriceWithTax * l.quantity, 0);
     }
 
-    constructor(private dataService: DataService, private localStorageService: LocalStorageService) {}
+    constructor(
+        private dataService: DataService,
+        private localStorageService: LocalStorageService,
+    ) {}
 
     ngOnInit() {
         this.lines = this.loadFromLocalStorage();

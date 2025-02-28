@@ -57,6 +57,7 @@ export const GET_PRODUCT_DETAIL = gql`
     templateUrl: './product-detail.component.html',
     styleUrls: ['./product-detail.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false,
 })
 export class ProductDetailComponent
     extends TypedBaseDetailComponent<typeof GetProductDetailDocument, 'product'>

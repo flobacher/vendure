@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, Provider } from '@angular/core';
+import { Provider, inject, provideAppInitializer } from '@angular/core';
 import { HistoryEntryConfig } from '../providers/custom-history-entry-component/history-entry-component-types';
 import { HistoryEntryComponentService } from '../providers/custom-history-entry-component/history-entry-component.service';
 
@@ -66,12 +66,10 @@ import { HistoryEntryComponentService } from '../providers/custom-history-entry-
  * @docsCategory custom-history-entry-components
  */
 export function registerHistoryEntryComponent(config: HistoryEntryConfig): Provider {
-    return {
-        provide: APP_INITIALIZER,
-        multi: true,
-        useFactory: (customHistoryEntryComponentService: HistoryEntryComponentService) => () => {
+    return provideAppInitializer(() => {
+        const initializerFn = ((customHistoryEntryComponentService: HistoryEntryComponentService) => () => {
             customHistoryEntryComponentService.registerComponent(config);
-        },
-        deps: [HistoryEntryComponentService],
-    };
+        })(inject(HistoryEntryComponentService));
+        return initializerFn();
+    });
 }

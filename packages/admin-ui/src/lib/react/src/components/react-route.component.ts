@@ -10,13 +10,12 @@ export const REACT_ROUTE_COMPONENT_OPTIONS = new InjectionToken<ReactRouteCompon
 @Component({
     selector: 'vdr-react-route-component',
     template: `
-        <vdr-route-component
-            ><div [vdrReactComponentHost]="reactComponent" [props]="props"></div
-        ></vdr-route-component>
+        <vdr-route-component>
+            <div [vdrReactComponentHost]="reactComponent" [props]="props"></div>
+        </vdr-route-component>
     `,
     styleUrls: ['./react-global-styles.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [ReactComponentHostDirective, RouteComponent, SharedModule],
 })
 export class ReactRouteComponent {

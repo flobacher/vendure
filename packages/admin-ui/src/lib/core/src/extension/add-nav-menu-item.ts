@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, Provider } from '@angular/core';
+import { Provider, inject, provideAppInitializer } from '@angular/core';
 import { NavMenuItem, NavMenuSection } from '../providers/nav-builder/nav-builder-types';
 import { NavBuilderService } from '../providers/nav-builder/nav-builder.service';
 
@@ -28,14 +28,12 @@ import { NavBuilderService } from '../providers/nav-builder/nav-builder.service'
  * @docsCategory nav-menu
  */
 export function addNavMenuSection(config: NavMenuSection, before?: string): Provider {
-    return {
-        provide: APP_INITIALIZER,
-        multi: true,
-        useFactory: (navBuilderService: NavBuilderService) => () => {
+    return provideAppInitializer(() => {
+        const initializerFn = ((navBuilderService: NavBuilderService) => () => {
             navBuilderService.addNavMenuSection(config, before);
-        },
-        deps: [NavBuilderService],
-    };
+        })(inject(NavBuilderService));
+        return initializerFn();
+    });
 }
 
 /**
@@ -66,12 +64,10 @@ export function addNavMenuSection(config: NavMenuSection, before?: string): Prov
  * @docsCategory nav-menu
  */
 export function addNavMenuItem(config: NavMenuItem, sectionId: string, before?: string): Provider {
-    return {
-        provide: APP_INITIALIZER,
-        multi: true,
-        useFactory: (navBuilderService: NavBuilderService) => () => {
+    return provideAppInitializer(() => {
+        const initializerFn = ((navBuilderService: NavBuilderService) => () => {
             navBuilderService.addNavMenuItem(config, sectionId, before);
-        },
-        deps: [NavBuilderService],
-    };
+        })(inject(NavBuilderService));
+        return initializerFn();
+    });
 }

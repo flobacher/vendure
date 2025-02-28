@@ -10,10 +10,11 @@ export const REACT_CUSTOM_COLUMN_COMPONENT_OPTIONS = new InjectionToken<{
 
 @Component({
     selector: 'vdr-react-custom-column-component',
-    template: ` <div [vdrReactComponentHost]="reactComponent" [props]="props"></div> `,
+    template: `
+        <div [vdrReactComponentHost]="reactComponent" [props]="props"></div>
+    `,
     styleUrls: ['./react-global-styles.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [ReactComponentHostDirective],
 })
 export class ReactCustomColumnComponent implements CustomColumnComponent, OnInit {

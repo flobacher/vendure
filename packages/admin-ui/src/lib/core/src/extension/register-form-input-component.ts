@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, FactoryProvider, Type } from '@angular/core';
+import { FactoryProvider, Type, inject, provideAppInitializer } from '@angular/core';
 import { FormInputComponent } from '../common/component-registry-types';
 import { ComponentRegistryService } from '../providers/component-registry/component-registry.service';
 
@@ -51,12 +51,10 @@ import { ComponentRegistryService } from '../providers/component-registry/compon
  * @docsCategory custom-input-components
  */
 export function registerFormInputComponent(id: string, component: Type<FormInputComponent>): FactoryProvider {
-    return {
-        provide: APP_INITIALIZER,
-        multi: true,
-        useFactory: (registry: ComponentRegistryService) => () => {
+    return provideAppInitializer(() => {
+        const initializerFn = ((registry: ComponentRegistryService) => () => {
             registry.registerInputComponent(id, component);
-        },
-        deps: [ComponentRegistryService],
-    };
+        })(inject(ComponentRegistryService));
+        return initializerFn();
+    });
 }

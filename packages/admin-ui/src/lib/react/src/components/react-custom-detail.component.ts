@@ -17,10 +17,11 @@ export interface ReactCustomDetailComponentContext {
 
 @Component({
     selector: 'vdr-react-custom-detail-component',
-    template: ` <div [vdrReactComponentHost]="reactComponent" [context]="context" [props]="props"></div> `,
+    template: `
+        <div [vdrReactComponentHost]="reactComponent" [context]="context" [props]="props"></div>
+    `,
     styleUrls: ['./react-global-styles.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [ReactComponentHostDirective],
 })
 export class ReactCustomDetailComponent implements CustomDetailComponent, OnInit {

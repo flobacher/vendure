@@ -20,6 +20,7 @@ import { Customer } from '../select-customer-dialog/select-customer-dialog.compo
     templateUrl: './select-address-dialog.component.html',
     styleUrls: ['./select-address-dialog.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false,
 })
 export class SelectAddressDialogComponent implements OnInit, Dialog<CreateAddressInput> {
     resolveWith: (result?: CreateAddressInput) => void;
@@ -32,7 +33,10 @@ export class SelectAddressDialogComponent implements OnInit, Dialog<CreateAddres
     useExisting = true;
     createNew = false;
 
-    constructor(private dataService: DataService, private formBuilder: UntypedFormBuilder) {}
+    constructor(
+        private dataService: DataService,
+        private formBuilder: UntypedFormBuilder,
+    ) {}
 
     ngOnInit(): void {
         this.addressForm = this.formBuilder.group({

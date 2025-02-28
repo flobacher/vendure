@@ -43,6 +43,7 @@ interface ProductOrVariant {
     templateUrl: './bulk-add-facet-values-dialog.component.html',
     styleUrls: ['./bulk-add-facet-values-dialog.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false,
 })
 export class BulkAddFacetValuesDialogComponent
     implements OnInit, OnDestroy, Dialog<FacetWithValuesFragment[]>
@@ -57,7 +58,10 @@ export class BulkAddFacetValuesDialogComponent
     items: ProductOrVariant[] = [];
     facetValuesRemoved = false;
     private subscription: Subscription;
-    constructor(private dataService: DataService, private changeDetectorRef: ChangeDetectorRef) {}
+    constructor(
+        private dataService: DataService,
+        private changeDetectorRef: ChangeDetectorRef,
+    ) {}
 
     ngOnInit(): void {
         const fetchData$: Observable<any> =

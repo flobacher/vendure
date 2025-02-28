@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, Provider } from '@angular/core';
+import { Provider, inject, provideAppInitializer } from '@angular/core';
 import { PageService, PageTabConfig } from '../providers/page/page.service';
 
 /**
@@ -22,15 +22,13 @@ import { PageService, PageTabConfig } from '../providers/page/page.service';
  * @docsCategory tabs
  */
 export function registerPageTab(config: PageTabConfig): Provider {
-    return {
-        provide: APP_INITIALIZER,
-        multi: true,
-        useFactory: (pageService: PageService) => () => {
+    return provideAppInitializer(() => {
+        const initializerFn = ((pageService: PageService) => () => {
             pageService.registerPageTab({
                 ...config,
                 priority: config.priority || 1,
             });
-        },
-        deps: [PageService],
-    };
+        })(inject(PageService));
+        return initializerFn();
+    });
 }

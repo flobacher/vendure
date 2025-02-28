@@ -53,6 +53,7 @@ export const COLLECTION_DETAIL_QUERY = gql`
     templateUrl: './collection-detail.component.html',
     styleUrls: ['./collection-detail.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false,
 })
 export class CollectionDetailComponent
     extends TypedBaseDetailComponent<typeof CollectionDetailQueryDocument, 'collection'>
