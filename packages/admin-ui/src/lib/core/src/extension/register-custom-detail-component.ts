@@ -1,4 +1,4 @@
-import { Provider, inject, provideAppInitializer } from '@angular/core';
+import { EnvironmentProviders, inject, provideAppInitializer } from '@angular/core';
 import { CustomDetailComponentConfig } from '../providers/custom-detail-component/custom-detail-component-types';
 import { CustomDetailComponentService } from '../providers/custom-detail-component/custom-detail-component.service';
 
@@ -54,7 +54,7 @@ import { CustomDetailComponentService } from '../providers/custom-detail-compone
  *
  * @docsCategory custom-detail-components
  */
-export function registerCustomDetailComponent(config: CustomDetailComponentConfig): Provider {
+export function registerCustomDetailComponent(config: CustomDetailComponentConfig): EnvironmentProviders {
     return provideAppInitializer(() => {
         const initializerFn = ((customDetailComponentService: CustomDetailComponentService) => () => {
             customDetailComponentService.registerCustomDetailComponent(config);

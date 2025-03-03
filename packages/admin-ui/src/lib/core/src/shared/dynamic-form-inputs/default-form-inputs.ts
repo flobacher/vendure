@@ -1,4 +1,4 @@
-import { FactoryProvider } from '@angular/core';
+import { EnvironmentProviders } from '@angular/core';
 import { registerFormInputComponent } from '../../extension/register-form-input-component';
 
 import { BooleanFormInputComponent } from './boolean-form-input/boolean-form-input.component';
@@ -44,6 +44,6 @@ export const defaultFormInputs = [
 /**
  * Registers the default form input components.
  */
-export function registerDefaultFormInputs(): FactoryProvider[] {
+export function registerDefaultFormInputs(): EnvironmentProviders[] {
     return defaultFormInputs.map(cmp => registerFormInputComponent(cmp.id, cmp));
 }

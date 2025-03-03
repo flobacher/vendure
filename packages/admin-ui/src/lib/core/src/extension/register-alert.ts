@@ -1,4 +1,4 @@
-import { FactoryProvider, inject, provideAppInitializer } from '@angular/core';
+import { EnvironmentProviders, inject, provideAppInitializer } from '@angular/core';
 import { AlertConfig, AlertsService } from '../providers/alerts/alerts.service';
 
 /**
@@ -9,7 +9,7 @@ import { AlertConfig, AlertsService } from '../providers/alerts/alerts.service';
  * @since 2.2.0
  * @docsCategory alerts
  */
-export function registerAlert(config: AlertConfig): FactoryProvider {
+export function registerAlert(config: AlertConfig): EnvironmentProviders {
     return provideAppInitializer(() => {
         const initializerFn = ((alertsService: AlertsService) => () => {
             alertsService.configureAlert(config);

@@ -1,4 +1,4 @@
-import { FactoryProvider, inject, provideAppInitializer } from '@angular/core';
+import { EnvironmentProviders, inject, provideAppInitializer } from '@angular/core';
 
 import {
     DashboardWidgetConfig,
@@ -13,7 +13,7 @@ import { DashboardWidgetService } from '../providers/dashboard-widget/dashboard-
  *
  * @docsCategory dashboard-widgets
  */
-export function registerDashboardWidget(id: string, config: DashboardWidgetConfig): FactoryProvider {
+export function registerDashboardWidget(id: string, config: DashboardWidgetConfig): EnvironmentProviders {
     return provideAppInitializer(() => {
         const initializerFn = ((dashboardWidgetService: DashboardWidgetService) => () => {
             dashboardWidgetService.registerWidget(id, config);
@@ -28,7 +28,7 @@ export function registerDashboardWidget(id: string, config: DashboardWidgetConfi
  *
  * @docsCategory dashboard-widgets
  */
-export function setDashboardWidgetLayout(layoutDef: WidgetLayoutDefinition): FactoryProvider {
+export function setDashboardWidgetLayout(layoutDef: WidgetLayoutDefinition): EnvironmentProviders {
     return provideAppInitializer(() => {
         const initializerFn = ((dashboardWidgetService: DashboardWidgetService) => () => {
             dashboardWidgetService.setDefaultLayout(layoutDef);

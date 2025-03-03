@@ -1,4 +1,4 @@
-import { Provider, inject, provideAppInitializer } from '@angular/core';
+import { EnvironmentProviders, inject, provideAppInitializer } from '@angular/core';
 import { ActionBarDropdownMenuItem } from '../providers/nav-builder/nav-builder-types';
 import { NavBuilderService } from '../providers/nav-builder/nav-builder.service';
 
@@ -24,7 +24,7 @@ import { NavBuilderService } from '../providers/nav-builder/nav-builder.service'
  * @since 2.2.0
  * @docsCategory action-bar
  */
-export function addActionBarDropdownMenuItem(config: ActionBarDropdownMenuItem): Provider {
+export function addActionBarDropdownMenuItem(config: ActionBarDropdownMenuItem): EnvironmentProviders {
     return provideAppInitializer(() => {
         const initializerFn = ((navBuilderService: NavBuilderService) => () => {
             navBuilderService.addActionBarDropdownMenuItem(config);

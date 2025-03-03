@@ -1,4 +1,4 @@
-import { Provider, inject, provideAppInitializer } from '@angular/core';
+import { EnvironmentProviders, inject, provideAppInitializer } from '@angular/core';
 import { PageService, PageTabConfig } from '../providers/page/page.service';
 
 /**
@@ -21,7 +21,7 @@ import { PageService, PageTabConfig } from '../providers/page/page.service';
  * ```
  * @docsCategory tabs
  */
-export function registerPageTab(config: PageTabConfig): Provider {
+export function registerPageTab(config: PageTabConfig): EnvironmentProviders {
     return provideAppInitializer(() => {
         const initializerFn = ((pageService: PageService) => () => {
             pageService.registerPageTab({

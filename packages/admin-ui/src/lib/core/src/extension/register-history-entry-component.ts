@@ -1,4 +1,4 @@
-import { Provider, inject, provideAppInitializer } from '@angular/core';
+import { EnvironmentProviders, inject, provideAppInitializer } from '@angular/core';
 import { HistoryEntryConfig } from '../providers/custom-history-entry-component/history-entry-component-types';
 import { HistoryEntryComponentService } from '../providers/custom-history-entry-component/history-entry-component.service';
 
@@ -65,7 +65,7 @@ import { HistoryEntryComponentService } from '../providers/custom-history-entry-
  * @since 1.9.0
  * @docsCategory custom-history-entry-components
  */
-export function registerHistoryEntryComponent(config: HistoryEntryConfig): Provider {
+export function registerHistoryEntryComponent(config: HistoryEntryConfig): EnvironmentProviders {
     return provideAppInitializer(() => {
         const initializerFn = ((customHistoryEntryComponentService: HistoryEntryComponentService) => () => {
             customHistoryEntryComponentService.registerComponent(config);

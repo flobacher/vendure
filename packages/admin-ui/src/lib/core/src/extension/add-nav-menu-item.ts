@@ -1,4 +1,4 @@
-import { Provider, inject, provideAppInitializer } from '@angular/core';
+import { EnvironmentProviders, inject, provideAppInitializer } from '@angular/core';
 import { NavMenuItem, NavMenuSection } from '../providers/nav-builder/nav-builder-types';
 import { NavBuilderService } from '../providers/nav-builder/nav-builder.service';
 
@@ -27,7 +27,7 @@ import { NavBuilderService } from '../providers/nav-builder/nav-builder.service'
  * ```
  * @docsCategory nav-menu
  */
-export function addNavMenuSection(config: NavMenuSection, before?: string): Provider {
+export function addNavMenuSection(config: NavMenuSection, before?: string): EnvironmentProviders {
     return provideAppInitializer(() => {
         const initializerFn = ((navBuilderService: NavBuilderService) => () => {
             navBuilderService.addNavMenuSection(config, before);
@@ -63,7 +63,11 @@ export function addNavMenuSection(config: NavMenuSection, before?: string): Prov
  *
  * @docsCategory nav-menu
  */
-export function addNavMenuItem(config: NavMenuItem, sectionId: string, before?: string): Provider {
+export function addNavMenuItem(
+    config: NavMenuItem,
+    sectionId: string,
+    before?: string,
+): EnvironmentProviders {
     return provideAppInitializer(() => {
         const initializerFn = ((navBuilderService: NavBuilderService) => () => {
             navBuilderService.addNavMenuItem(config, sectionId, before);
