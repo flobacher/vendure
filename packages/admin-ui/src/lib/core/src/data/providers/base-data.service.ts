@@ -79,6 +79,7 @@ export class BaseDataService {
             .mutate<T, V>({
                 mutation: withCustomFields,
                 variables: withoutReadonlyFields,
+                // @ts-expect-error - the types are incorrect here
                 update,
             })
             .pipe(map(result => result.data as T));
