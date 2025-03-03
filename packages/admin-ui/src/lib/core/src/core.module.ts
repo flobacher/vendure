@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
-import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { interval } from 'rxjs';
 
 import { getAppConfig } from './app.config';
@@ -24,7 +24,7 @@ import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { DataModule } from './data/data.module';
 import { AlertsService } from './providers/alerts/alerts.service';
 import { CustomHttpTranslationLoader } from './providers/i18n/custom-http-loader';
-import { InjectableTranslateMessageFormatCompiler } from './providers/i18n/custom-message-format-compiler';
+// import { InjectableTranslateMessageFormatCompiler } from './providers/i18n/custom-message-format-compiler';
 import { I18nService } from './providers/i18n/i18n.service';
 import { LocalStorageService } from './providers/local-storage/local-storage.service';
 import { Permission } from './public_api';
@@ -44,7 +44,7 @@ import { SharedModule } from './shared/shared.module';
                 deps: [HttpClient, PlatformLocation],
             },
 
-            compiler: { provide: TranslateCompiler, useClass: InjectableTranslateMessageFormatCompiler },
+            // compiler: { provide: TranslateCompiler, useClass: InjectableTranslateMessageFormatCompiler },
         }),
     ],
     providers: [registerDefaultFormInputs(), Title],
