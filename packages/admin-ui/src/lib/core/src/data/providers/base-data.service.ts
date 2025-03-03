@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MutationUpdaterFn, SingleExecutionResult, WatchQueryFetchPolicy } from '@apollo/client/core';
+import { MutationUpdaterFn, WatchQueryFetchPolicy } from '@apollo/client/core';
 import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { simpleDeepClone } from '@vendure/common/lib/simple-deep-clone';
 import { Apollo } from 'apollo-angular';
@@ -47,7 +47,7 @@ export class BaseDataService {
     /**
      * Performs a GraphQL watch query
      */
-    query<T, V extends Record<string, any> = Record<string, any>>(
+    query<T, V extends Record<string, unknown> = Record<string, unknown>>(
         query: DocumentNode | TypedDocumentNode<T, V>,
         variables?: V,
         fetchPolicy: WatchQueryFetchPolicy = 'cache-and-network',
@@ -66,7 +66,7 @@ export class BaseDataService {
     /**
      * Performs a GraphQL mutation
      */
-    mutate<T, V extends Record<string, any> = Record<string, any>>(
+    mutate<T, V extends Record<string, unknown> = Record<string, unknown>>(
         mutation: DocumentNode | TypedDocumentNode<T, V>,
         variables?: V,
         update?: MutationUpdaterFn<T>,
@@ -81,7 +81,7 @@ export class BaseDataService {
                 variables: withoutReadonlyFields,
                 update,
             })
-            .pipe(map(result => (result as SingleExecutionResult).data as T));
+            .pipe(map(result => result.data as T));
     }
 
     private prepareCustomFields<V>(mutation: DocumentNode, variables: V): V {
@@ -89,7 +89,7 @@ export class BaseDataService {
         if (entity) {
             const customFieldConfig = this.customFields.get(entity);
             if (variables && customFieldConfig) {
-                let variablesClone = simpleDeepClone(variables as any);
+                let variablesClone = simpleDeepClone(variables);
                 variablesClone = removeReadonlyCustomFields(variablesClone, customFieldConfig);
                 variablesClone = transformRelationCustomFieldInputs(variablesClone, customFieldConfig);
                 return variablesClone;
